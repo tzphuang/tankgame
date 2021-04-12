@@ -2,8 +2,10 @@ package tankrotationexample;
 
 
 import tankrotationexample.game.TRE;
+import tankrotationexample.game.Tank;
 import tankrotationexample.menus.EndGamePanel;
 import tankrotationexample.menus.StartMenuPanel;
+import tankrotationexample.menus.TankControlsPanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -22,6 +24,10 @@ public class Launcher {
      * two buttons start and exit.
      */
     private JPanel startPanel;
+
+
+    private JPanel controlPanel;
+
     /*
      * game panel is used to show our game to the screen. inside this panel
      * also contains the game loop. This is where out objects are updated and
@@ -57,16 +63,22 @@ public class Launcher {
     private void initUIComponents(){
         this.mainPanel = new JPanel(); // create a new main panel
         this.startPanel = new StartMenuPanel(this); // create a new start panel
+
+        this.controlPanel = new TankControlsPanel(this);
+
         this.gamePanel = new TRE(this); // create a new game panel
         this.gamePanel.gameInitialize(); // initialize game, but DO NOT start game
         this.endPanel = new EndGamePanel(this); // create a new end game pane;
         cl = new CardLayout(); // creating a new CardLayout Panel
-        this.jf.setResizable(false); //make the JFrame not resizable
         this.mainPanel.setLayout(cl); // set the layout of the main panel to our card layout
         this.mainPanel.add(startPanel, "start"); //add the start panel to the main panel
+
+        this.mainPanel.add(controlPanel, "controls");
+
         this.mainPanel.add(gamePanel, "game");   //add the game panel to the main panel
         this.mainPanel.add(endPanel, "end");    // add the end game panel to the main panel
         this.jf.add(mainPanel); // add the main panel to the JFrame
+        this.jf.setResizable(false); //make the JFrame not resizable
         this.setFrame("start"); // set the current panel to start panel
     }
 
@@ -77,6 +89,11 @@ public class Launcher {
                 // set the size of the jFrame to the expected size for the start panel
                 this.jf.setSize(GameConstants.START_MENU_SCREEN_WIDTH,GameConstants.START_MENU_SCREEN_HEIGHT);
                 break;
+
+            case "controls":
+                this.jf.setSize(GameConstants.CONTROLS_MENU_SCREEN_WIDTH,GameConstants.CONTROLS_MENU_SCREEN_HEIGHT);
+                break;
+
             case "game":
                 // set the size of the jFrame to the expected size for the game panel
                 this.jf.setSize(GameConstants.GAME_SCREEN_WIDTH,GameConstants.GAME_SCREEN_HEIGHT);

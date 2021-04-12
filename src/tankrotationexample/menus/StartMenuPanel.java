@@ -15,6 +15,7 @@ public class StartMenuPanel extends JPanel {
 
     private BufferedImage menuBackground;
     private JButton start;
+    private JButton controls;
     private JButton exit;
     private Launcher lf;
 
@@ -37,6 +38,13 @@ public class StartMenuPanel extends JPanel {
             this.lf.setFrame("game");
         }));
 
+        controls = new JButton("Tank Controls");
+        controls.setFont(new Font("Courier New", Font.BOLD ,24));
+        controls.setBounds(100,350,250,50);
+        controls.addActionListener((actionEvent -> {
+            this.lf.setFrame("controls");
+        }));
+
 
         exit = new JButton("Exit");
         exit.setSize(new Dimension(200,100));
@@ -48,6 +56,7 @@ public class StartMenuPanel extends JPanel {
 
 
         this.add(start);
+        this.add(controls);
         this.add(exit);
 
     }
