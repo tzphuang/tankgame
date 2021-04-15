@@ -150,6 +150,20 @@ public class Tank{
         g2d.drawImage(this.img, rotation, null);
     }
 
+    /*
+        //takes current image and keeps its image "line straightness", will be used to rotate image
+        AffineTransform rotation = AffineTransform.getTranslateInstance(x, y);
+        //rotate the image around the middle of the image (width/2 & height/2 = center of object)
+        rotation.rotate(Math.toRadians(angle), this.img.getWidth() / 2.0, this.img.getHeight() / 2.0);
+        //create new image to be used as buffered image
+        Graphics2D hitBoxBorder = (Graphics2D) g;
 
+        //below used to create a border around the tank to define its border
+        hitBoxBorder.drawImage(this.img, rotation, null);
+        hitBoxBorder.setColor(Color.GREEN);
+        hitBoxBorder.rotate(Math.toRadians(angle), bounds.x + bounds.width/2, bounds.y + bounds.height/2);
+        hitBoxBorder.drawRect(x,y,this.img.getWidth(),this.img.getHeight());
+
+     */
 
 }

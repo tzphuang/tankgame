@@ -43,6 +43,9 @@ public class TankControlsPanel extends JPanel{
 
     @Override
     public void paintComponent(Graphics g){
+        //use a graphics2d object (g2)
+        //and draw the image passed in (graphic g) which is a buffered image
+        //onto the current menu's background image
         Graphics2D g2 = (Graphics2D) g;
         g2.drawImage(this.menuBackground,0,0,null);
     }
