@@ -1,33 +1,23 @@
 package tankrotationexample.game;
 
-
-
-import tankrotationexample.GameConstants;
-
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 
-public abstract class GameObject {
+public abstract class GameObject implements Drawable{
 
     //x position on the map for object
     private int x;
     //y position on the map for object
     private int y;
-    //x velocity of object
-    private int vx;
-    //y velocity of object
-    private int vy;
+
+    private boolean drawHitBox = true;
+
     //angle of object
     private float angle;
 
-    //how fast object can move
-    private final int OBJECTSPEED = 2;
-    //how fast the object's rotation can be
-    private final float ROTATIONSPEED = 3.0f;
-
     //object's image
-    private BufferedImage img;
+    private BufferedImage objectImg;
 
     //object's hitBox
     private Rectangle hitBox;
@@ -46,10 +36,18 @@ public abstract class GameObject {
 
     public abstract void checkBorder();
 
-    public void drawImage(Graphics currentImage){
+
+    public void drawImage(Graphics gameImage){
+
         //takes current image and keeps its image "line straightness", will be used to rotate image
         AffineTransform currRotation = AffineTransform.getTranslateInstance(x, y);
-        currRotation.rotate(Math.toRadians(angle),this.img.getWidth() / 2.0, this.img.getHeight() /2.0);
+        currRotation.rotate(Math.toRadians(angle),this.objectImg.getWidth() / 2.0, this.objectImg.getHeight() /2.0);
+        Graphics2D currImage = (Graphics2D) gameImage;
+        currImage.drawImage(this.objectImg, currRotation, null);
+
+        if(drawHitBox){
+            //here i will draw the hitbox in the same x,y as the game object above
+        }
 
     }
 
@@ -60,9 +58,9 @@ public abstract class GameObject {
         rotation.rotate(Math.toRadians(angle), this.img.getWidth() / 2.0, this.img.getHeight() / 2.0);
         //create new image to be used as buffered image
         Graphics2D hitBoxBorder = (Graphics2D) g;
+        g.drawImage(this.img, rotation, null);
 
         //below used to create a border around the tank to define its border
-        hitBoxBorder.drawImage(this.img, rotation, null);
         hitBoxBorder.setColor(Color.GREEN);
         hitBoxBorder.rotate(Math.toRadians(angle), bounds.x + bounds.width/2, bounds.y + bounds.height/2);
         hitBoxBorder.drawRect(x,y,this.img.getWidth(),this.img.getHeight());
