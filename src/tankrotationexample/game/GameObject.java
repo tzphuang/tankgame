@@ -30,6 +30,8 @@ public abstract class GameObject implements Drawable{
         this.y = y;
     }
 
+    public void setImg(BufferedImage newImage){this.objectImg = newImage;}
+
     private void moveBound(){
         this.hitBox.setLocation(x,y);
     }
