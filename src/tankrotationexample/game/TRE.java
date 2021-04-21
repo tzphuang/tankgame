@@ -132,6 +132,10 @@ public class TRE extends JPanel implements Runnable {
                 mapBit = mapCurRow.split("\t");
 
                 for(int currentColumn = 0; currentColumn < numColumns; currentColumn++){
+
+                    //@@@CHECKER to see if it works
+                    //System.out.print(mapBit[currentColumn] + " ");
+
                     //for each int representing a game object
                     switch(mapBit[currentColumn]){
                         //unbreakable wall
@@ -180,6 +184,8 @@ public class TRE extends JPanel implements Runnable {
                             break;
                     }
                 }
+                //@@@CHECKER to see if it works
+                //System.out.println();
             }
 
 
