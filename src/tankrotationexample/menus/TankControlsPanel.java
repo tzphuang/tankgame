@@ -20,7 +20,7 @@ public class TankControlsPanel extends JPanel{
     public TankControlsPanel(Launcher lf) {
         this.lf = lf;
         try {
-            menuBackground = ImageIO.read(this.getClass().getClassLoader().getResource("controls.jpg"));
+            menuBackground = ImageIO.read(this.getClass().getClassLoader().getResource("labledcontrols.png"));
         } catch (IOException e) {
             System.out.println("Error cant read menu background");
             e.printStackTrace();
@@ -31,7 +31,7 @@ public class TankControlsPanel extends JPanel{
 
         controls = new JButton("Main Menu");
         controls.setFont(new Font("Courier New", Font.BOLD ,24));
-        controls.setBounds(0,325,150,50);
+        controls.setBounds(575,375,250,50);
         controls.addActionListener((actionEvent -> {
             this.lf.setFrame("start");
         }));
