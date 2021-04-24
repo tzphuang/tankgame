@@ -1,8 +1,11 @@
 package tankrotationexample.game;
 
-public class Lives extends PlayerStats{
-    @Override
-    public void drawImage() {
+import java.awt.*;
 
+public class Lives extends PlayerStats{
+
+    @Override
+    public void drawImage(Graphics gameImage) {
+        super.drawImage(gameImage);
     }
 }

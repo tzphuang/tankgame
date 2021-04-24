@@ -14,7 +14,7 @@ public abstract class GameObject implements Drawable{
     private boolean drawHitBox = true;
 
     //angle of object
-    private float angle;
+    private float angle = 0;
 
     //object's image
     private BufferedImage objectImg;

@@ -1,7 +1,12 @@
 package tankrotationexample.game;
 
 
+import java.awt.*;
+
 public abstract class PlayerStats implements Drawable{
 
-    public abstract void drawImage();
+    @Override
+    public void drawImage(Graphics gameImage) {
+
+    }
 }

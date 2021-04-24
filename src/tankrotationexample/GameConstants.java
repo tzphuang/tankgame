@@ -13,4 +13,32 @@ public class GameConstants {
     public static final int CONTROLS_MENU_SCREEN_WIDTH = 1400;
     public static final int CONTROLS_MENU_SCREEN_HEIGHT = 700;
 
+    public static final int WORLD_WIDTH = 2400;
+    public static final int WORLD_HEIGHT = 2400;
+
+    public static final int GAME_PANEL_WIDTH = 1200;
+    public static final int GAME_PANEL_HEIGHT = 1200;
+
+    public static final int LEFT_TANK_TOP_LEFT_CORNER_X = 0;
+    public static final int LEFT_TANK_TOP_LEFT_CORNER_Y = 240;
+
+    public static final int RIGHT_TANK_TOP_LEFT_CORNER_X = 600;
+    public static final int RIGHT_TANK_TOP_LEFT_CORNER_Y = 240;
+
+    public static final int LEFT_STATS_TOP_LEFT_CORNER_X = 0;
+    public static final int LEFT_STATS_TOP_LEFT_CORNER_Y = 0;
+
+    public static final int RIGHT_STATS_TOP_LEFT_CORNER_X = 840;
+    public static final int RIGHT_STATS_TOP_LEFT_CORNER_Y = 0;
+
+    public static final int MINIMAP_TOP_LEFT_CORNER_X = 360;
+    public static final int MINIMAP_TOP_LEFT_CORNER_Y = 0;
+
+    public static final int LEFT_TANK_STARTING_LOCATION_X = 300;
+    public static final int LEFT_TANK_STARTING_LOCATION_Y = 300;
+
+    public static final int RIGHT_TANK_STARTING_LOCATION_X = 2100;
+    public static final int RIGHT_TANK_STARTING_LOCATION_Y = 2100;
+
+
 }

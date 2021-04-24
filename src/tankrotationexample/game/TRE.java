@@ -35,6 +35,11 @@ public class TRE extends JPanel implements Runnable {
     private long tick = 0;
     ArrayList<GameObject> overWorldObjects;
 
+    int leftSubImageX;
+    int leftSubImageY;
+    int rightSubImageX;
+    int rightSubImageY;
+
     public TRE(Launcher lf){
         this.lf = lf;
     }
@@ -53,7 +58,7 @@ public class TRE extends JPanel implements Runnable {
                  * simulate an end game event
                  * we will do this with by ending the game when drawn 2000 frames have been drawn
                  */
-                if(this.tick > 2000){
+                if(this.tick > 5000){
                     this.lf.setFrame("end");
                     return;
                 }
@@ -69,9 +74,11 @@ public class TRE extends JPanel implements Runnable {
     public void resetGame(){
         this.tick = 0;
 
-        this.t1.setX(724);
-        this.t1.setY(468);
+        //right tank
+        this.t1.setX(2100);
+        this.t1.setY(2100);
 
+        //left tank
         this.t2.setX(300);
         this.t2.setY(300);
 
@@ -85,8 +92,8 @@ public class TRE extends JPanel implements Runnable {
      * initial state as well.
      */
     public void gameInitialize() {
-        this.world = new BufferedImage(GameConstants.GAME_SCREEN_WIDTH,
-                                       GameConstants.GAME_SCREEN_HEIGHT,
+        this.world = new BufferedImage(GameConstants.WORLD_WIDTH,
+                                       GameConstants.WORLD_HEIGHT,
                                        BufferedImage.TYPE_INT_RGB);
 
         BufferedImage t1img = null;
@@ -195,14 +202,16 @@ public class TRE extends JPanel implements Runnable {
             ex.printStackTrace();
         }
 
-        t1 = new Tank(724, 468, 0, 0, 0, t1img);
+        //right tank
+        t1 = new Tank(2100, 2100, 0, 0, 0, t1img);
         TankControl tc1 = new TankControl(t1, KeyEvent.VK_UP, KeyEvent.VK_DOWN, KeyEvent.VK_LEFT, KeyEvent.VK_RIGHT, KeyEvent.VK_ENTER);
         this.setBackground(Color.BLACK);
         this.lf.getJf().addKeyListener(tc1);
 
+        //left tank
         t2 = new Tank (300, 300, 0, 0, 0, t2img);
         TankControl tc2 = new TankControl(t2, KeyEvent.VK_W, KeyEvent.VK_S, KeyEvent.VK_A, KeyEvent.VK_D, KeyEvent.VK_SPACE);
-        this.setBackground(Color.BLACK);
+        this.setBackground(Color.CYAN);
         this.lf.getJf().addKeyListener(tc2);
     }
 
@@ -212,15 +221,66 @@ public class TRE extends JPanel implements Runnable {
         Graphics2D g2 = (Graphics2D) g;
         Graphics2D buffer = world.createGraphics();
         buffer.setColor(Color.BLACK);
-        buffer.fillRect(0,0,GameConstants.GAME_SCREEN_WIDTH,GameConstants.GAME_SCREEN_HEIGHT);
+        buffer.fillRect(0,0,GameConstants.WORLD_WIDTH,GameConstants.WORLD_HEIGHT);
 
         //does not yet draw any images as my gameObject is not fully finished
         //draws all objects for the overWorld stored in overWorldObjects
         this.overWorldObjects.forEach(GameObject -> GameObject.drawImage(buffer));
 
+        leftSubImageX = t2.getX() - 300;
+        if(leftSubImageX < 0){ //checks left side bound
+            leftSubImageX = 0;
+        }
+        else if(leftSubImageX > 1800){ //checks right side bound
+            leftSubImageX = 1800;
+        }
+
+        leftSubImageY = t2.getY() - 480;
+        if(leftSubImageY < 0){ //checks vertical bound
+            leftSubImageY = 0;
+        }
+        else if(leftSubImageY > 1440){ //checks vertical floor
+            leftSubImageY = 1440;
+        }
+
+        rightSubImageX = t1.getX() - 300;
+        if(rightSubImageX < 0){
+            rightSubImageX = 0;
+        }
+        else if(rightSubImageX > 1800){
+            rightSubImageX = 1800;
+        }
+
+        rightSubImageY = t1.getY() - 480;
+        if(rightSubImageY < 0){
+            rightSubImageY = 0;
+        }
+        else if(rightSubImageY > 1440){
+            rightSubImageY = 1440;
+        }
+
+
+        //draws left tank's game screen
+        //where the left tank is the center of the left screen
+        BufferedImage leftTankScreen = world.getSubimage(leftSubImageX, leftSubImageY,600,960);
+
+        //draws right tank's game screen
+        //where the right tank is the center of the right screen
+        BufferedImage rightTankScreen = world.getSubimage(rightSubImageX, rightSubImageY,600,960);
+
+        BufferedImage miniMap = world.getSubimage(0, 0, GameConstants.WORLD_WIDTH, GameConstants.WORLD_HEIGHT);
         this.t1.drawImage(buffer);
         this.t2.drawImage(buffer);
-        g2.drawImage(world,0,0,null);
+
+        //draws finished buffered image to the screen after every component is added
+        //g2.drawImage(world,0,0,null);
+
+        g2.drawImage(leftTankScreen, 0, 240, null);
+        g2.drawImage(rightTankScreen, 600, 240, null);
+
+        g2.scale(.2, .1);
+        g2.drawImage(miniMap,1800,0,null); //why is this X 1800?
+        //g2.scale(1.0,1.0);
     }
 
 }

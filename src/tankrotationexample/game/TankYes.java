@@ -1,5 +1,7 @@
 package tankrotationexample.game;
 
+import java.awt.*;
+
 public class TankYes extends Moving{
 
     @Override
@@ -8,7 +10,7 @@ public class TankYes extends Moving{
     }
 
     @Override
-    public void drawImage() {
-
+    public void drawImage(Graphics gameImage) {
+        super.drawImage(gameImage);
     }
 }
