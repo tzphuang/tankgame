@@ -40,5 +40,13 @@ public class GameConstants {
     public static final int RIGHT_TANK_STARTING_LOCATION_X = 2100;
     public static final int RIGHT_TANK_STARTING_LOCATION_Y = 2100;
 
+    public static final int SCREEN_LEFT_BOUND = 0;
+    public static final int SCREEN_RIGHT_BOUND = 1800;
+    public static final int SCREEN_CEILING_BOUND = 0;
+    public static final int SCREEN_FLOOR_BOUND = 1440;
+
+    public static final int SPLIT_SCREEN_WIDTH = 600;
+    public static final int SPLIT_SCREEN_HEIGHT = 960;
+
 
 }
