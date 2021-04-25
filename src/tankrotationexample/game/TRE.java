@@ -147,46 +147,31 @@ public class TRE extends JPanel implements Runnable {
                     switch(mapBit[currentColumn]){
                         //unbreakable wall
                         case "1":
-                            Unbreakable curUnbreakWall = new Unbreakable();
-                            curUnbreakWall.setX(currentColumn * 50);
-                            curUnbreakWall.setY(currentRow * 50);
-                            curUnbreakWall.setImg(unBreakWall);
+                            Unbreakable curUnbreakWall = new Unbreakable(currentColumn * 50, currentRow * 50, 0,unBreakWall);
                             this.overWorldObjects.add(curUnbreakWall);
                             break;
 
                         //breakable wall
                         case "2":
-                            Breakable curBreakableWall = new Breakable();
-                            curBreakableWall.setX(currentColumn * 50);
-                            curBreakableWall.setY(currentRow * 50);
-                            curBreakableWall.setImg(breakWall);
+                            Breakable curBreakableWall = new Breakable(currentColumn * 50, currentRow * 50, 0, breakWall);
                             this.overWorldObjects.add(curBreakableWall);
                             break;
 
                         //heavy machine gun
                         case "3":
-                            MachineGun curMgun = new MachineGun();
-                            curMgun.setX(currentColumn * 50);
-                            curMgun.setY(currentRow * 50);
-                            curMgun.setImg(heavyMgun);
+                            MachineGun curMgun = new MachineGun(currentColumn * 50, currentRow * 50, 0, 0, 0, heavyMgun);
                             this.overWorldObjects.add(curMgun);
                             break;
 
                         //rocket launcher
                         case "4":
-                            RocketLauncher curRLauncher = new RocketLauncher();
-                            curRLauncher.setX(currentColumn * 50);
-                            curRLauncher.setY(currentRow * 50);
-                            curRLauncher.setImg(rLauncher);
+                            RocketLauncher curRLauncher = new RocketLauncher(currentColumn * 50, currentRow * 50, 0, 0, 0, rLauncher);
                             this.overWorldObjects.add(curRLauncher);
                             break;
 
                         //god mode
                         case "5":
-                            GodMode curPwrUp = new GodMode();
-                            curPwrUp.setX(currentColumn * 50);
-                            curPwrUp.setY(currentRow * 50);
-                            curPwrUp.setImg(godMode);
+                            GodMode curPwrUp = new GodMode(currentColumn * 50, currentRow * 50, 0, 0, 0, godMode);
                             this.overWorldObjects.add(curPwrUp);
                             break;
                     }

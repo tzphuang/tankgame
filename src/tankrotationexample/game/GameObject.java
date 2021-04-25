@@ -22,6 +22,13 @@ public abstract class GameObject implements Drawable{
     //object's hitBox
     private Rectangle hitBox;
 
+    GameObject(int currX, int currY, int currAngle, BufferedImage currImage){
+        this.x = currX;
+        this.y = currY;
+        this.angle = currAngle;
+        this.objectImg = currImage;
+    }
+
     public void setX(int x) {
         this.x = x;
     }
