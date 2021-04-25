@@ -82,8 +82,6 @@ public class TRE extends JPanel implements Runnable {
         this.t2.setX(GameConstants.LEFT_TANK_STARTING_LOCATION_X);
         this.t2.setY(GameConstants.LEFT_TANK_STARTING_LOCATION_Y);
 
-        //clears my game world objects so I can reinitialize it later
-        overWorldObjects.clear();
     }
 
 
@@ -142,9 +140,8 @@ public class TRE extends JPanel implements Runnable {
 
                     //@@@CHECKER to see if it works
                     //System.out.print(mapBit[currentColumn] + " ");
-
-                    //for each int representing a game object
                     switch(mapBit[currentColumn]){
+
                         //unbreakable wall
                         case "1":
                             Unbreakable curUnbreakWall = new Unbreakable(currentColumn * 50, currentRow * 50, 0,unBreakWall);
@@ -174,14 +171,15 @@ public class TRE extends JPanel implements Runnable {
                             GodMode curPwrUp = new GodMode(currentColumn * 50, currentRow * 50, 0, 0, 0, godMode);
                             this.overWorldObjects.add(curPwrUp);
                             break;
+
+                        //default:
+                        //    System.out.println("current column is:" + currentColumn + "current mapbit is:" + mapBit[currentColumn]);
+                        //    break;
                     }
                 }
                 //@@@CHECKER to see if it works
                 //System.out.println();
             }
-
-
-
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
             ex.printStackTrace();
@@ -210,8 +208,11 @@ public class TRE extends JPanel implements Runnable {
 
         //does not yet draw any images as my gameObject is not fully finished
         //draws all objects for the overWorld stored in overWorldObjects
+        //System.out.println("The size of over world objects is: " + this.overWorldObjects.size()); //check how much items are in array
         this.overWorldObjects.forEach(GameObject -> GameObject.drawImage(buffer));
 
+        //below keeps the tank screens from going beyond the world bounds while
+        //stll keeping track of the tank
         leftSubImageX = t2.getX() - (GameConstants.SPLIT_SCREEN_WIDTH/2);
         if(leftSubImageX < GameConstants.SCREEN_LEFT_BOUND){ //checks left side bound
             leftSubImageX = GameConstants.SCREEN_LEFT_BOUND;

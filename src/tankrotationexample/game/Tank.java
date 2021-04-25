@@ -31,6 +31,7 @@ public class Tank{
     private boolean DownPressed;
     private boolean RightPressed;
     private boolean LeftPressed;
+    private boolean ShootPressed;
 
 
     Tank(int x, int y, int vx, int vy, int angle, BufferedImage img) {
@@ -71,6 +72,10 @@ public class Tank{
         this.LeftPressed = true;
     }
 
+    void toggleShootPressed() {
+        this.ShootPressed = true;
+    }
+
     void unToggleUpPressed() {
         this.UpPressed = false;
     }
@@ -87,6 +92,10 @@ public class Tank{
         this.LeftPressed = false;
     }
 
+    void unToggleShootPressed() {
+        this.ShootPressed = false;
+    }
+
     void update() {
         if (this.UpPressed) {
             this.moveForwards();
@@ -100,6 +109,9 @@ public class Tank{
         }
         if (this.RightPressed) {
             this.rotateRight();
+        }
+        if (this.ShootPressed) {
+            this.spawnBullet();
         }
     }
 
@@ -127,6 +139,9 @@ public class Tank{
         checkBorder();
     }
 
+    private void spawnBullet() {
+
+    }
 
 
 

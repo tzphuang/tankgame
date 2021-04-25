@@ -54,10 +54,9 @@ public abstract class GameObject implements Drawable{
         Graphics2D currImage = (Graphics2D) gameImage;
         currImage.drawImage(this.objectImg, currRotation, null);
 
-        if(drawHitBox){
+        //if(drawHitBox){
             //here i will draw the hitbox in the same x,y as the game object above
-        }
-
+        //}
     }
 
     /*
