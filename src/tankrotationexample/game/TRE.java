@@ -35,6 +35,7 @@ public class TRE extends JPanel implements Runnable {
     private long tick = 0;
     ArrayList<GameObject> overWorldObjects;
     SplitScreen tankSplitScreen;
+    MiniMap gameMiniMap;
 
     public TRE(Launcher lf){
         this.lf = lf;
@@ -195,6 +196,9 @@ public class TRE extends JPanel implements Runnable {
 
         //adds the references into the tank split screen inside this initialization block to create the split screen later
         tankSplitScreen = new SplitScreen(t1, t2, world);
+
+        //creating a new minimap with the world image reference stored
+        gameMiniMap = new MiniMap(world);
     }
 
 
@@ -207,10 +211,8 @@ public class TRE extends JPanel implements Runnable {
 
         //does not yet draw any images as my gameObject is not fully finished
         //draws all objects for the overWorld stored in overWorldObjects
-        //System.out.println("The size of over world objects is: " + this.overWorldObjects.size()); //check how much items are in array
         this.overWorldObjects.forEach(GameObject -> GameObject.drawImage(buffer));
 
-        BufferedImage miniMap = world.getSubimage(0, 0, GameConstants.WORLD_WIDTH, GameConstants.WORLD_HEIGHT);
         this.t1.drawImage(buffer);
         this.t2.drawImage(buffer);
 
@@ -220,7 +222,7 @@ public class TRE extends JPanel implements Runnable {
         tankSplitScreen.drawImage(g2);
 
         g2.scale(.2, .1);
-        g2.drawImage(miniMap,1800,0,null); //why is this X 1800?
+        gameMiniMap.drawImage(g2);
         //g2.scale(1.0,1.0);
     }
 

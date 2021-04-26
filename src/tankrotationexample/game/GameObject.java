@@ -37,13 +37,33 @@ public abstract class GameObject implements Drawable{
         this.y = y;
     }
 
+    public void setAngle(float newAngle){
+        this.angle = newAngle;
+    }
+
     public void setImg(BufferedImage newImage){this.objectImg = newImage;}
+
+    public int getX(){
+        return x;
+    }
+
+    public int getY(){
+        return y;
+    }
+
+    public float getAngle(){
+        return angle;
+    }
+
+    public BufferedImage getImg(){
+        return objectImg;
+    }
+
+
 
     private void moveBound(){
         this.hitBox.setLocation(x,y);
     }
-
-    public abstract void checkBorder();
 
 
     public void drawImage(Graphics gameImage){
