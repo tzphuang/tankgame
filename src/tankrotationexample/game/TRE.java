@@ -34,11 +34,7 @@ public class TRE extends JPanel implements Runnable {
     private Launcher lf;
     private long tick = 0;
     ArrayList<GameObject> overWorldObjects;
-
-    int leftSubImageX;
-    int leftSubImageY;
-    int rightSubImageX;
-    int rightSubImageY;
+    SplitScreen tankSplitScreen;
 
     public TRE(Launcher lf){
         this.lf = lf;
@@ -196,6 +192,9 @@ public class TRE extends JPanel implements Runnable {
         TankControl tc2 = new TankControl(t2, KeyEvent.VK_W, KeyEvent.VK_S, KeyEvent.VK_A, KeyEvent.VK_D, KeyEvent.VK_SPACE);
         this.setBackground(Color.CYAN);
         this.lf.getJf().addKeyListener(tc2);
+
+        //adds the references into the tank split screen inside this initialization block to create the split screen later
+        tankSplitScreen = new SplitScreen(t1, t2, world);
     }
 
 
@@ -211,49 +210,6 @@ public class TRE extends JPanel implements Runnable {
         //System.out.println("The size of over world objects is: " + this.overWorldObjects.size()); //check how much items are in array
         this.overWorldObjects.forEach(GameObject -> GameObject.drawImage(buffer));
 
-        //below keeps the tank screens from going beyond the world bounds while
-        //stll keeping track of the tank
-        leftSubImageX = t2.getX() - (GameConstants.SPLIT_SCREEN_WIDTH/2);
-        if(leftSubImageX < GameConstants.SCREEN_LEFT_BOUND){ //checks left side bound
-            leftSubImageX = GameConstants.SCREEN_LEFT_BOUND;
-        }
-        else if(leftSubImageX > GameConstants.SCREEN_RIGHT_BOUND){ //checks right side bound
-            leftSubImageX = GameConstants.SCREEN_RIGHT_BOUND;
-        }
-
-        leftSubImageY = t2.getY() - (GameConstants.SPLIT_SCREEN_HEIGHT/2);
-        if(leftSubImageY < GameConstants.SCREEN_CEILING_BOUND){ //checks vertical bound
-            leftSubImageY = GameConstants.SCREEN_CEILING_BOUND;
-        }
-        else if(leftSubImageY > GameConstants.SCREEN_FLOOR_BOUND){ //checks vertical floor
-            leftSubImageY = GameConstants.SCREEN_FLOOR_BOUND;
-        }
-
-        rightSubImageX = t1.getX() - (GameConstants.SPLIT_SCREEN_WIDTH/2);
-        if(rightSubImageX < GameConstants.SCREEN_LEFT_BOUND){
-            rightSubImageX = GameConstants.SCREEN_LEFT_BOUND;
-        }
-        else if(rightSubImageX > GameConstants.SCREEN_RIGHT_BOUND){
-            rightSubImageX = GameConstants.SCREEN_RIGHT_BOUND;
-        }
-
-        rightSubImageY = t1.getY() - (GameConstants.SPLIT_SCREEN_HEIGHT/2);
-        if(rightSubImageY < GameConstants.SCREEN_CEILING_BOUND){
-            rightSubImageY = GameConstants.SCREEN_CEILING_BOUND;
-        }
-        else if(rightSubImageY > GameConstants.SCREEN_FLOOR_BOUND){
-            rightSubImageY = GameConstants.SCREEN_FLOOR_BOUND;
-        }
-
-
-        //draws left tank's game screen
-        //where the left tank is the center of the left screen
-        BufferedImage leftTankScreen = world.getSubimage(leftSubImageX, leftSubImageY,GameConstants.SPLIT_SCREEN_WIDTH, GameConstants.SPLIT_SCREEN_HEIGHT);
-
-        //draws right tank's game screen
-        //where the right tank is the center of the right screen
-        BufferedImage rightTankScreen = world.getSubimage(rightSubImageX, rightSubImageY,GameConstants.SPLIT_SCREEN_WIDTH, GameConstants.SPLIT_SCREEN_HEIGHT);
-
         BufferedImage miniMap = world.getSubimage(0, 0, GameConstants.WORLD_WIDTH, GameConstants.WORLD_HEIGHT);
         this.t1.drawImage(buffer);
         this.t2.drawImage(buffer);
@@ -261,8 +217,7 @@ public class TRE extends JPanel implements Runnable {
         //draws finished buffered image to the screen after every component is added
         //g2.drawImage(world,0,0,null);
 
-        g2.drawImage(leftTankScreen, GameConstants.LEFT_TANK_TOP_LEFT_CORNER_X, GameConstants.LEFT_TANK_TOP_LEFT_CORNER_Y, null);
-        g2.drawImage(rightTankScreen, GameConstants.RIGHT_TANK_TOP_LEFT_CORNER_X, GameConstants.RIGHT_TANK_TOP_LEFT_CORNER_Y, null);
+        tankSplitScreen.drawImage(g2);
 
         g2.scale(.2, .1);
         g2.drawImage(miniMap,1800,0,null); //why is this X 1800?
