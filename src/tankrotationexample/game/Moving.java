@@ -77,7 +77,7 @@ public abstract class Moving extends GameObject{
         checkBorder();
     }
 
-    private void checkBorder() {
+    protected void checkBorder() {
         if (getX() < 30) {
             setX(30);
         }

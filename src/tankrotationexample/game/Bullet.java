@@ -13,6 +13,21 @@ public abstract class Bullet extends Moving{
     }
 
     @Override
+    protected void moveForwards() {
+        setVx( (int) Math.round( R * Math.cos( Math.toRadians( getAngle() ) ) ) );
+        setVy( (int) Math.round( R * Math.sin( Math.toRadians( getAngle() ) ) ) );
+
+        setX(getX() + getVx());
+        setY(getY() + getVy());
+
+        checkBorder();
+    }
+
+    public void update(){
+        moveForwards();
+    }
+
+    @Override
     public void drawImage(Graphics gameImage) {
         super.drawImage(gameImage);
     }

@@ -9,6 +9,8 @@ import static javax.imageio.ImageIO.read;
 
 public class Tank extends Moving{
 
+    private final int MAXNUMBULLETSPERTANK = 15;
+
     private int hitPoints;
     private int lives;
 
@@ -34,9 +36,10 @@ public class Tank extends Moving{
         this.hitPoints = 100;
         this.lives = 3;
         currentAmmoNum = 1;//sets the tank to be on machinegun mode at creation
+        listOfBullets = new ArrayList<>();
     }
 
-    public void setShootPressed(boolean currShootPressed) {
+    public void setShootPressRelease(boolean currShootPressed) {
         ShootPressed = currShootPressed;
     }
 
@@ -44,8 +47,16 @@ public class Tank extends Moving{
         this.ammo = ammo;
     }
 
+    public void setCurrentAmmoNum(int newAmmoNum){
+        currentAmmoNum = newAmmoNum;
+    }
+
     public BufferedImage getAmmo() {
         return ammo;
+    }
+
+    public int getCurrentAmmoNum() {
+        return currentAmmoNum;
     }
 
     void toggleUpPressed() {
@@ -86,6 +97,7 @@ public class Tank extends Moving{
 
     void unToggleShootPressed() {
         this.ShootPressed = false;
+        this.shootPressRelease = true;
     }
 
     void update() {
@@ -103,31 +115,51 @@ public class Tank extends Moving{
             this.rotateRight();
         }
         if (this.ShootPressed) {
-            //System.out.println("shooting button pressed");
+            //spawn a bullet on first check of shooting button being pressed
+            //shootPressRelease will only be true after the user releases the shoot button
             if(shootPressRelease) {
                 this.spawnBullet();
+                shootPressRelease = false;
+                //System.out.println("bullet spawned");
+                //System.out.println("Number of Bullets is:" + listOfBullets.size());
             }
+
         }
+        //every game tic we will update each bullet's distance
+        this.listOfBullets.forEach(Bullet -> Bullet.update());
     }
 
     private void spawnBullet(){
+        //used as a single reference for creation purposes
         Bullet currBullet;
+
+        //each tank gets 15 bullets
+        //maybe implement if game lags really hard
+        if (MAXNUMBULLETSPERTANK >= listOfBullets.size()){
+
+        }
 
         switch(currentAmmoNum){
             case 1:
                 currBullet = new MachineGun(this.getX(),this.getY(),0, 0, this.getAngle(), ammo);
+                listOfBullets.add(currBullet);
                 break;
 
             case 2:
                 currBullet = new RocketLauncher(this.getX(),this.getY(),0, 0, this.getAngle(), ammo);
+                listOfBullets.add(currBullet);
+                break;
+
+            default:
+                System.out.println("spawn bullet went to default, something is wrong");
                 break;
         }
-
     }
 
 
     @Override
     public void drawImage(Graphics gameImage) {
         super.drawImage(gameImage);
+        this.listOfBullets.forEach(Bullet -> Bullet.drawImage(gameImage));
     }
 }

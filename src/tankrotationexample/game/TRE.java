@@ -55,7 +55,7 @@ public class TRE extends JPanel implements Runnable {
                  * simulate an end game event
                  * we will do this with by ending the game when drawn 2000 frames have been drawn
                  */
-                if(this.tick > 5000){
+                if(this.tick > 6000){
                     this.lf.setFrame("end");
                     return;
                 }
@@ -192,12 +192,16 @@ public class TRE extends JPanel implements Runnable {
         TankControl tc1 = new TankControl(t1, KeyEvent.VK_UP, KeyEvent.VK_DOWN, KeyEvent.VK_LEFT, KeyEvent.VK_RIGHT, KeyEvent.VK_ENTER);
         this.setBackground(Color.BLACK);
         this.lf.getJf().addKeyListener(tc1);
+        t1.setCurrentAmmoNum(1); //1 represents machine gun ammo, while 2 is rockets
+        t1.setAmmo(mgBulletImg);
 
         //left tank
         t2 = new Tank (GameConstants.LEFT_TANK_STARTING_LOCATION_X, GameConstants.LEFT_TANK_STARTING_LOCATION_Y, 0, 0, 0, t2img);
         TankControl tc2 = new TankControl(t2, KeyEvent.VK_W, KeyEvent.VK_S, KeyEvent.VK_A, KeyEvent.VK_D, KeyEvent.VK_SPACE);
         this.setBackground(Color.CYAN);
         this.lf.getJf().addKeyListener(tc2);
+        t2.setCurrentAmmoNum(1); //1 represents machine gun ammo, while 2 is rockets
+        t2.setAmmo(mgBulletImg);
 
         //adds the references into the tank split screen inside this initialization block to create the split screen later
         tankSplitScreen = new SplitScreen(t1, t2, world);
