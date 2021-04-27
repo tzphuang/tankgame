@@ -11,7 +11,7 @@ public abstract class GameObject implements Drawable{
     //y position on the map for object
     private int y;
 
-    private boolean drawHitBox = true;
+    public static boolean drawHitBox = true;
 
     //angle of object
     private float angle = 0;
@@ -27,6 +27,7 @@ public abstract class GameObject implements Drawable{
         this.y = currY;
         this.angle = currAngle;
         this.objectImg = currImage;
+        this.hitBox = new Rectangle(x,y, this.objectImg.getWidth(), this.objectImg.getHeight());
     }
 
     public void setX(int x) {
@@ -42,6 +43,10 @@ public abstract class GameObject implements Drawable{
     }
 
     public void setImg(BufferedImage newImage){this.objectImg = newImage;}
+
+    public void setHitBox(){
+        this.hitBox.setLocation(x,y);
+    }
 
     public int getX(){
         return x;
@@ -59,7 +64,9 @@ public abstract class GameObject implements Drawable{
         return objectImg;
     }
 
-
+    public Rectangle getHitBox(){
+        return this.hitBox;
+    }
 
     private void moveBound(){
         this.hitBox.setLocation(x,y);
@@ -74,9 +81,10 @@ public abstract class GameObject implements Drawable{
         Graphics2D currImage = (Graphics2D) gameImage;
         currImage.drawImage(this.objectImg, currRotation, null);
 
-        //if(drawHitBox){
-            //here i will draw the hitbox in the same x,y as the game object above
-        //}
+        if(drawHitBox){
+            gameImage.setColor(Color.GREEN);
+            gameImage.drawRect(x,y,this.objectImg.getWidth(),this.objectImg.getHeight());
+        }
     }
 
     /*
