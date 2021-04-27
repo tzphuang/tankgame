@@ -47,7 +47,13 @@ public class TRE extends JPanel implements Runnable {
            this.resetGame();
            while (true) {
                 this.tick++;
-                this.t1.update(); // update tank
+
+                //updates the tick timer for auto shooting
+                this.t1.setTickTimer(tick);
+                this.t2.setTickTimer(tick);
+
+                // update tank
+                this.t1.update();
                 this.t2.update();
                 this.repaint();   // redraw game
                 Thread.sleep(1000 / 144); //sleep for a few milliseconds

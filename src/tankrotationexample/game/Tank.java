@@ -22,6 +22,7 @@ public class Tank extends Moving{
     //used in the TankControl for this tank to make sure we can only spawn
     //another ammo after a shoot button is pressed then released
     private boolean shootPressRelease = true;
+    private long tickTimer;
 
     private ArrayList<Bullet> listOfBullets;
 
@@ -49,6 +50,10 @@ public class Tank extends Moving{
 
     public void setCurrentAmmoNum(int newAmmoNum){
         currentAmmoNum = newAmmoNum;
+    }
+
+    public void setTickTimer(long currtTimer){
+        this.tickTimer = currtTimer;
     }
 
     public BufferedImage getAmmo() {
@@ -117,7 +122,7 @@ public class Tank extends Moving{
         if (this.ShootPressed) {
             //spawn a bullet on first check of shooting button being pressed
             //shootPressRelease will only be true after the user releases the shoot button
-            if(shootPressRelease) {
+            if(shootPressRelease || (tickTimer % 72 == 0)) {
                 this.spawnBullet();
                 shootPressRelease = false;
                 //System.out.println("bullet spawned");
