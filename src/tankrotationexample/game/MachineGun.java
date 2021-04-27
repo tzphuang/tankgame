@@ -5,7 +5,7 @@ import java.awt.image.BufferedImage;
 
 public class MachineGun extends NonExplosive{
 
-    MachineGun(int currX, int currY, int currVX, int currVY, int currAngle, BufferedImage currImg){
+    MachineGun(int currX, int currY, int currVX, int currVY, float currAngle, BufferedImage currImg){
         super(currX, currY, currVX, currVY, currAngle, currImg);
     }
 

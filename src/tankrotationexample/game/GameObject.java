@@ -22,7 +22,7 @@ public abstract class GameObject implements Drawable{
     //object's hitBox
     private Rectangle hitBox;
 
-    GameObject(int currX, int currY, int currAngle, BufferedImage currImage){
+    GameObject(int currX, int currY, float currAngle, BufferedImage currImage){
         this.x = currX;
         this.y = currY;
         this.angle = currAngle;
@@ -86,23 +86,4 @@ public abstract class GameObject implements Drawable{
             gameImage.drawRect(x,y,this.objectImg.getWidth(),this.objectImg.getHeight());
         }
     }
-
-    /*
-        //takes current image and keeps its image "line straightness", will be used to rotate image
-        AffineTransform rotation = AffineTransform.getTranslateInstance(x, y);
-        //rotate the image around the middle of the image (width/2 & height/2 = center of object)
-        rotation.rotate(Math.toRadians(angle), this.img.getWidth() / 2.0, this.img.getHeight() / 2.0);
-        //create new image to be used as buffered image
-        Graphics2D hitBoxBorder = (Graphics2D) g;
-        g.drawImage(this.img, rotation, null);
-
-        //below used to create a border around the tank to define its border
-        hitBoxBorder.setColor(Color.GREEN);
-        hitBoxBorder.rotate(Math.toRadians(angle), bounds.x + bounds.width/2, bounds.y + bounds.height/2);
-        hitBoxBorder.drawRect(x,y,this.img.getWidth(),this.img.getHeight());
-
-     */
-
-
-
 }

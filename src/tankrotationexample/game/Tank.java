@@ -2,20 +2,26 @@ package tankrotationexample.game;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import java.util.Objects;
+
+import static javax.imageio.ImageIO.read;
 
 public class Tank extends Moving{
 
     private int hitPoints;
     private int lives;
-    private BufferedImage ammo;
-
-    private long timeOfLastShootPress;
-    private long timeCurrent;
 
     //heavy machinegun for 1
     //rocket launcher for 2
-    int currentBullet;
+    private int currentAmmoNum;
+    private BufferedImage ammo;
 
+    //used in the TankControl for this tank to make sure we can only spawn
+    //another ammo after a shoot button is pressed then released
+    private boolean shootPressRelease = true;
+
+    private ArrayList<Bullet> listOfBullets;
 
     private boolean UpPressed;
     private boolean DownPressed;
@@ -23,10 +29,15 @@ public class Tank extends Moving{
     private boolean LeftPressed;
     private boolean ShootPressed;
 
-    Tank(int currX, int currY, int currVX, int currVY, int currAngle, BufferedImage currImg){
+    Tank(int currX, int currY, int currVX, int currVY, float currAngle, BufferedImage currImg){
         super(currX, currY, currVX, currVY, currAngle, currImg);
         this.hitPoints = 100;
         this.lives = 3;
+        currentAmmoNum = 1;//sets the tank to be on machinegun mode at creation
+    }
+
+    public void setShootPressed(boolean currShootPressed) {
+        ShootPressed = currShootPressed;
     }
 
     public void setAmmo(BufferedImage ammo) {
@@ -93,13 +104,24 @@ public class Tank extends Moving{
         }
         if (this.ShootPressed) {
             //System.out.println("shooting button pressed");
-            if(timeCurrent > timeOfLastShootPress + 60) {
+            if(shootPressRelease) {
                 this.spawnBullet();
             }
         }
     }
 
     private void spawnBullet(){
+        Bullet currBullet;
+
+        switch(currentAmmoNum){
+            case 1:
+                currBullet = new MachineGun(this.getX(),this.getY(),0, 0, this.getAngle(), ammo);
+                break;
+
+            case 2:
+                currBullet = new RocketLauncher(this.getX(),this.getY(),0, 0, this.getAngle(), ammo);
+                break;
+        }
 
     }
 

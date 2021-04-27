@@ -19,7 +19,7 @@ public abstract class Moving extends GameObject{
     //how fast the object's rotation can be
     private final float ROTATIONSPEED = 3.0f;
 
-    Moving(int currX, int currY, int currVX, int currVY, int currAngle, BufferedImage currImg){
+    Moving(int currX, int currY, int currVX, int currVY, float currAngle, BufferedImage currImg){
         super(currX, currY, currAngle, currImg);
         this.vx = currVX;
         this.vy = currVY;

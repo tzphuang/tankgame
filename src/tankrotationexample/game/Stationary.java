@@ -5,7 +5,7 @@ import java.awt.image.BufferedImage;
 
 public abstract class Stationary extends GameObject{
 
-    Stationary(int currX, int currY, int currAngle, BufferedImage currImage){
+    Stationary(int currX, int currY, float currAngle, BufferedImage currImage){
         super(currX, currY, currAngle, currImage);
     }
 

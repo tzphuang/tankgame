@@ -5,7 +5,7 @@ import java.awt.image.BufferedImage;
 
 public class Unbreakable extends Wall{
 
-    Unbreakable(int currX, int currY, int currAngle, BufferedImage currImage){
+    Unbreakable(int currX, int currY, float currAngle, BufferedImage currImage){
         super(currX, currY, currAngle, currImage);
     }
 

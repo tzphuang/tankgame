@@ -8,7 +8,7 @@ public abstract class Bullet extends Moving{
     private final int R = 7;
     private Rectangle hitBox;
 
-    Bullet(int currX, int currY, int currVX, int currVY, int currAngle, BufferedImage currImg){
+    Bullet(int currX, int currY, int currVX, int currVY, float currAngle, BufferedImage currImg){
         super(currX, currY, currVX, currVY, currAngle, currImg);
     }
 

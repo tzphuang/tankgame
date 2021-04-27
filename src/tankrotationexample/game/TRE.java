@@ -98,6 +98,8 @@ public class TRE extends JPanel implements Runnable {
         BufferedImage heavyMgun = null;
         BufferedImage rLauncher = null;
         BufferedImage godMode = null;
+        BufferedImage mgBulletImg = null;
+        BufferedImage rocketBulletImg = null;
 
         overWorldObjects = new ArrayList<>();
 
@@ -113,6 +115,8 @@ public class TRE extends JPanel implements Runnable {
             heavyMgun = read(Objects.requireNonNull(TRE.class.getClassLoader().getResource("heavy machine gun.png")));
             rLauncher = read(Objects.requireNonNull(TRE.class.getClassLoader().getResource("rocket launcher.png")));
             godMode = read(Objects.requireNonNull(TRE.class.getClassLoader().getResource("tankgold.png")));
+            mgBulletImg = read(Objects.requireNonNull(TRE.class.getClassLoader().getResource("bullet.png")));
+            rocketBulletImg = read(Objects.requireNonNull(TRE.class.getClassLoader().getResource("rocket.png")));
 
             //Reading in Map.txt to load in the map to game
             InputStreamReader isr = new InputStreamReader(TRE.class.getClassLoader().getResourceAsStream("Map.txt"));
