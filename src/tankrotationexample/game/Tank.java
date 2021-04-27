@@ -5,6 +5,18 @@ import java.awt.image.BufferedImage;
 
 public class Tank extends Moving{
 
+    private int hitPoints;
+    private int lives;
+    private BufferedImage ammo;
+
+    private long timeOfLastShootPress;
+    private long timeCurrent;
+
+    //heavy machinegun for 1
+    //rocket launcher for 2
+    int currentBullet;
+
+
     private boolean UpPressed;
     private boolean DownPressed;
     private boolean RightPressed;
@@ -13,6 +25,16 @@ public class Tank extends Moving{
 
     Tank(int currX, int currY, int currVX, int currVY, int currAngle, BufferedImage currImg){
         super(currX, currY, currVX, currVY, currAngle, currImg);
+        this.hitPoints = 100;
+        this.lives = 3;
+    }
+
+    public void setAmmo(BufferedImage ammo) {
+        this.ammo = ammo;
+    }
+
+    public BufferedImage getAmmo() {
+        return ammo;
     }
 
     void toggleUpPressed() {
@@ -71,7 +93,9 @@ public class Tank extends Moving{
         }
         if (this.ShootPressed) {
             //System.out.println("shooting button pressed");
-            this.spawnBullet();
+            if(timeCurrent > timeOfLastShootPress + 60) {
+                this.spawnBullet();
+            }
         }
     }
 

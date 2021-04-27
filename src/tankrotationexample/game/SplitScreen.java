@@ -6,13 +6,13 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class SplitScreen implements Drawable{
-    Tank t1;
-    Tank t2;
-    BufferedImage worldImage;
-    int leftSubImageX;
-    int leftSubImageY;
-    int rightSubImageX;
-    int rightSubImageY;
+    private Tank t1;
+    private Tank t2;
+    private BufferedImage worldImage;
+    private int leftSubImageX;
+    private int leftSubImageY;
+    private int rightSubImageX;
+    private int rightSubImageY;
 
     SplitScreen(Tank currT1, Tank currT2, BufferedImage currWorldImage){
         this.t1 = currT1;

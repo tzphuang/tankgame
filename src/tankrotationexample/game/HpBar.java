@@ -2,10 +2,15 @@ package tankrotationexample.game;
 
 import java.awt.*;
 
-public class HpBar extends PlayerStats {
+public class HpBar implements Drawable {
+    private Tank tank;
+
+    HpBar(Tank currTank){
+        this.tank = currTank;
+    }
 
     @Override
     public void drawImage(Graphics gameImage) {
-        super.drawImage(gameImage);
+
     }
 }

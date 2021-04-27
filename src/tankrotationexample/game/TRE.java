@@ -137,6 +137,7 @@ public class TRE extends JPanel implements Runnable {
 
                     //@@@CHECKER to see if it works
                     //System.out.print(mapBit[currentColumn] + " ");
+                    //this creates different over world objects such as walls/unbreakable walls/weapon&other powerups
                     switch(mapBit[currentColumn]){
 
                         //unbreakable wall
@@ -153,13 +154,13 @@ public class TRE extends JPanel implements Runnable {
 
                         //heavy machine gun
                         case "3":
-                            MachineGun curMgun = new MachineGun(currentColumn * 50, currentRow * 50, 0, 0, 0, heavyMgun);
+                            MachineGunMode curMgun = new MachineGunMode(currentColumn * 50, currentRow * 50, 0, 0, 0, heavyMgun);
                             this.overWorldObjects.add(curMgun);
                             break;
 
                         //rocket launcher
                         case "4":
-                            RocketLauncher curRLauncher = new RocketLauncher(currentColumn * 50, currentRow * 50, 0, 0, 0, rLauncher);
+                            RocketLauncherMode curRLauncher = new RocketLauncherMode(currentColumn * 50, currentRow * 50, 0, 0, 0, rLauncher);
                             this.overWorldObjects.add(curRLauncher);
                             break;
 

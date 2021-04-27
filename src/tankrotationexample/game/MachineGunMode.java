@@ -3,15 +3,10 @@ package tankrotationexample.game;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public abstract class Bullet extends Moving{
+public class MachineGunMode extends Powerup{
 
-    private final int R = 7;
-    private BufferedImage bulletImage;
-    private Rectangle hitBox;
-
-    Bullet(int currX, int currY, int currVX, int currVY, int currAngle, BufferedImage currImg){
+    MachineGunMode(int currX, int currY, int currVX, int currVY, int currAngle, BufferedImage currImg){
         super(currX, currY, currVX, currVY, currAngle, currImg);
-
     }
 
     @Override
@@ -19,3 +14,4 @@ public abstract class Bullet extends Moving{
         super.drawImage(gameImage);
     }
 }
+

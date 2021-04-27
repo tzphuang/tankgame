@@ -7,7 +7,7 @@ import java.awt.image.BufferedImage;
 import java.nio.Buffer;
 
 public class MiniMap implements Drawable{
-    BufferedImage worldImage;
+    private BufferedImage worldImage;
 
     MiniMap(BufferedImage currWorldImage){
         this.worldImage = currWorldImage;
@@ -17,7 +17,7 @@ public class MiniMap implements Drawable{
     public void drawImage(Graphics gameImage) {
 
         BufferedImage miniMap = worldImage.getSubimage(0, 0, GameConstants.WORLD_WIDTH, GameConstants.WORLD_HEIGHT);
-        gameImage.drawImage(miniMap,1800,0,null); //why is this X 1800?
+        gameImage.drawImage(miniMap,GameConstants.MINIMAP_TOP_LEFT_CORNER_X * 5,GameConstants.MINIMAP_TOP_LEFT_CORNER_Y,null);
 
 
     }
