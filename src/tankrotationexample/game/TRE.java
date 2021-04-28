@@ -33,9 +33,11 @@ public class TRE extends JPanel implements Runnable {
     private Tank t2;
     private Launcher lf;
     private long tick = 0;
-    ArrayList<GameObject> overWorldObjects;
-    SplitScreen tankSplitScreen;
-    MiniMap gameMiniMap;
+    private ArrayList<GameObject> overWorldObjects;
+    private SplitScreen tankSplitScreen;
+    private MiniMap gameMiniMap;
+    private PlayerStats tank1Stats;
+    private PlayerStats tank2Stats;
 
     public TRE(Launcher lf){
         this.lf = lf;
@@ -55,6 +57,11 @@ public class TRE extends JPanel implements Runnable {
                 // update tank
                 this.t1.update();
                 this.t2.update();
+
+                //updates both stats
+                this.tank1Stats.update();
+                this.tank2Stats.update();
+
                 this.repaint();   // redraw game
                 Thread.sleep(1000 / 144); //sleep for a few milliseconds
                 /*
@@ -214,6 +221,15 @@ public class TRE extends JPanel implements Runnable {
 
         //creating a new minimap with the world image reference stored
         gameMiniMap = new MiniMap(world);
+
+        //initializing the stats for tank1
+        tank1Stats = new PlayerStats(t1);
+
+        //initializing the stats for tank2
+        tank2Stats = new PlayerStats(t2);
+
+
+
     }
 
 
@@ -231,13 +247,25 @@ public class TRE extends JPanel implements Runnable {
         this.t1.drawImage(buffer);
         this.t2.drawImage(buffer);
 
-        //draws finished buffered image to the screen after every component is added
-        //g2.drawImage(world,0,0,null);
+        //im doing something wrong here from lines 250 - 261
+        BufferedImage leftStatsImg = new BufferedImage(GameConstants.STATS_SCREEN_WIDTH, GameConstants.STATS_SCREEN_HEIGHT, BufferedImage.TYPE_INT_RGB);
+        Graphics2D leftStats2d = leftStatsImg.createGraphics();
+        BufferedImage rightStatsImg = new BufferedImage(GameConstants.STATS_SCREEN_WIDTH, GameConstants.STATS_SCREEN_HEIGHT, BufferedImage.TYPE_INT_RGB);
+        Graphics2D rightStats2d = rightStatsImg.createGraphics();
 
-        tankSplitScreen.drawImage(g2);
+        tank2Stats.drawImage(leftStats2d);
+        tank1Stats.drawImage(rightStats2d);
+        //I cant redraw the image cause its not a buffered image
+        g2.drawImage(leftStats2d, GameConstants.LEFT_STATS_TOP_LEFT_CORNER_X, GameConstants.LEFT_STATS_TOP_LEFT_CORNER_Y, null);
+        g2.drawImage(rightStats2d, GameConstants.RIGHT_STATS_TOP_LEFT_CORNER_X, GameConstants.RIGHT_STATS_TOP_LEFT_CORNER_Y, null);
+
+        tankSplitScreen.drawImage(g2); //what happens if i change this to buffer?
 
         g2.scale(.2, .1);
-        gameMiniMap.drawImage(g2);
+        gameMiniMap.drawImage(g2); ////what happens if i change this to buffer?
+
+        //draws finished buffered image to the screen after every component is added
+        //g2.drawImage(world,0,0,null);
         //g2.scale(1.0,1.0);
     }
 

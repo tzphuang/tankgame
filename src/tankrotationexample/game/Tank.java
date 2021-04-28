@@ -17,6 +17,7 @@ public class Tank extends Moving{
     //heavy machinegun for 1
     //rocket launcher for 2
     private int currentAmmoNum;
+    //this is the buffered image for ammo
     private BufferedImage ammo;
 
     //used in the TankControl for this tank to make sure we can only spawn
@@ -44,6 +45,7 @@ public class Tank extends Moving{
         ShootPressed = currShootPressed;
     }
 
+    //sets ammo image
     public void setAmmo(BufferedImage ammo) {
         this.ammo = ammo;
     }
@@ -56,12 +58,29 @@ public class Tank extends Moving{
         this.tickTimer = currtTimer;
     }
 
+    public void setHitPoints(int currHitPoints){
+        this.hitPoints = currHitPoints;
+    }
+
+    public void setLives(int currLives){
+        this.lives = currLives;
+    }
+
+    //gets ammo image
     public BufferedImage getAmmo() {
         return ammo;
     }
 
     public int getCurrentAmmoNum() {
         return currentAmmoNum;
+    }
+
+    public int getHitPoints(){
+        return this.hitPoints;
+    }
+
+    public int getLives() {
+        return this.lives;
     }
 
     void toggleUpPressed() {

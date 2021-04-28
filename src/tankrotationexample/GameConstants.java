@@ -48,5 +48,8 @@ public class GameConstants {
     public static final int SPLIT_SCREEN_WIDTH = 600;
     public static final int SPLIT_SCREEN_HEIGHT = 960;
 
+    public static final int STATS_SCREEN_WIDTH = 360;
+    public static final int STATS_SCREEN_HEIGHT = 240;
+
 
 }

@@ -1,9 +1,12 @@
 package tankrotationexample.game;
 
 
-import java.awt.*;
+import tankrotationexample.GameConstants;
 
-public abstract class PlayerStats implements Drawable{
+import java.awt.*;
+import java.awt.image.BufferedImage;
+
+public class PlayerStats implements Drawable{
 
     //this should be an aggregate class of the classes "ammo", "hpbar", "lives"
     //those 3 should not inherit any functionailty from PlayerStats
@@ -15,16 +18,24 @@ public abstract class PlayerStats implements Drawable{
     private Ammo ammo;
     private Tank tank;
 
-
-    PlayerStats(HpBar currHpBar, Lives currLives, Ammo currAmmo, Tank currTank){
-        this.hpBar = currHpBar;
-        this.life = currLives;
-        this.ammo = currAmmo;
+    PlayerStats(Tank currTank){
+        this.hpBar = new HpBar(currTank);
+        this.life = new Lives(currTank);
+        this.ammo = new Ammo(currTank);
         this.tank = currTank;
     }
 
+    public void update(){
+        this.hpBar.update();
+        this.life.update();
+        this.ammo.update();
+    }
+
     @Override
+    //this takes a blank buffered image to draw to
     public void drawImage(Graphics gameImage) {
+
+        BufferedImage statsScreenTank;
 
     }
 }
