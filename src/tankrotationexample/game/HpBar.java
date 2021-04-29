@@ -1,6 +1,7 @@
 package tankrotationexample.game;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 public class HpBar implements Drawable {
     private Tank tank;
@@ -13,6 +14,10 @@ public class HpBar implements Drawable {
 
     public void update(){
         currHpValue = this.tank.getHitPoints();
+    }
+
+    public void drawBufferedImage(BufferedImage currBuffer){
+
     }
 
     @Override
