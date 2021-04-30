@@ -65,7 +65,7 @@ public abstract class Moving extends GameObject{
         setY(getY() - vy);
 
         checkBorder();
-        this.getHitBox().setLocation(getX(),getY());
+        this.setHitBox(getX(),getY());
     }
 
     protected void moveForwards() {
@@ -76,7 +76,7 @@ public abstract class Moving extends GameObject{
         setY(getY() + vy);
 
         checkBorder();
-        this.getHitBox().setLocation(getX(),getY());
+        this.setHitBox(getX(),getY());
     }
 
     protected void checkBorder() {

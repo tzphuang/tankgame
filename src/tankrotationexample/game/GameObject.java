@@ -44,7 +44,7 @@ public abstract class GameObject implements Drawable{
 
     public void setImg(BufferedImage newImage){this.objectImg = newImage;}
 
-    public void setHitBox(){
+    public void setHitBox(int x, int y){
         this.hitBox.setLocation(x,y);
     }
 
@@ -66,10 +66,6 @@ public abstract class GameObject implements Drawable{
 
     public Rectangle getHitBox(){
         return this.hitBox.getBounds();
-    }
-
-    private void moveBound(){
-        this.hitBox.setLocation(x,y);
     }
 
 

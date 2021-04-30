@@ -83,6 +83,10 @@ public class Tank extends Moving{
         return this.lives;
     }
 
+    public ArrayList<Bullet> getListOfBullets(){
+        return this.listOfBullets;
+    }
+
     void toggleUpPressed() {
         this.UpPressed = true;
     }

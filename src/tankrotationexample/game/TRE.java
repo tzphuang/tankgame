@@ -56,6 +56,8 @@ public class TRE extends JPanel implements Runnable {
                 // update tank
                 this.t1.update();
                 this.t2.update();
+                //checks if things are colliding with each other
+                checkCollisions();
 
                 this.repaint();   // redraw game
                 Thread.sleep(1000 / 144); //sleep for a few milliseconds
@@ -249,6 +251,12 @@ public class TRE extends JPanel implements Runnable {
         //draws finished buffered image to the screen after every component is added
         //g2.drawImage(world,0,0,null);
         //g2.scale(1.0,1.0);
+    }
+
+    public void checkCollisions(){
+        if(this.t1.getHitBox().intersects(this.t2.getHitBox())){
+            System.out.println("tanks collided");
+        }
     }
 
 }
