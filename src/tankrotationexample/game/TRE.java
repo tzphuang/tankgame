@@ -17,7 +17,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.Objects;
 
 
@@ -39,7 +38,6 @@ public class TRE extends JPanel implements Runnable {
     private MiniMap gameMiniMap;
     private PlayerStats tankStats;
     private ArrayList<Bullet> bulletArrayCollisionDetection;
-    private Iterator myIterator;
 
     public TRE(Launcher lf){
         this.lf = lf;
@@ -267,6 +265,7 @@ public class TRE extends JPanel implements Runnable {
 
         //check collisions will loop through all objects and call their respective collisionDetected method
 
+        /*
         //compares tank1's bullets to tank2's hitbox
         bulletArrayCollisionDetection = t1.getListOfBullets();
         if(!bulletArrayCollisionDetection.isEmpty()){
@@ -278,7 +277,7 @@ public class TRE extends JPanel implements Runnable {
                 }
                 bulletArrayCollisionDetection.remove(compareBullet); //removes the bullet from the list cause its hit something
             }
-        }
+        }*/
 
         /*
         bulletArrayCollisionDetection = t1.getListOfBullets();
@@ -291,6 +290,26 @@ public class TRE extends JPanel implements Runnable {
                 bulletArrayCollisionDetection.remove(compareBullet); //removes the bullet from the list cause its hit something
             }
         }*/
+
+        //compares tank1's bullets to tank2's hitbox
+        bulletArrayCollisionDetection = t1.getListOfBullets();
+        for(int index = 0; index < bulletArrayCollisionDetection.size(); index++){
+            if( this.t2.getHitBox().intersects( bulletArrayCollisionDetection.get(index).getHitBox() ) ) {
+                t2.collisionDetected(bulletArrayCollisionDetection.get(index));
+                bulletArrayCollisionDetection.remove(bulletArrayCollisionDetection.get(index));//removes collided bullet
+                index--; //updates index since one bullet is now removed
+            }
+        }
+
+        //compares tank2's bullets to tank1's hitbox
+        bulletArrayCollisionDetection = t2.getListOfBullets();
+        for(int index = 0; index < bulletArrayCollisionDetection.size(); index++){
+            if( this.t1.getHitBox().intersects( bulletArrayCollisionDetection.get(index).getHitBox() ) ) {
+                t1.collisionDetected(bulletArrayCollisionDetection.get(index));
+                bulletArrayCollisionDetection.remove(bulletArrayCollisionDetection.get(index));//removes collided bullet
+                index--; //updates index since one bullet is now removed
+            }
+        }
 
 
 
