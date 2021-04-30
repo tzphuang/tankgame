@@ -65,7 +65,7 @@ public abstract class GameObject implements Drawable{
     }
 
     public Rectangle getHitBox(){
-        return this.hitBox;
+        return this.hitBox.getBounds();
     }
 
     private void moveBound(){

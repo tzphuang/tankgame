@@ -45,11 +45,16 @@ public class PlayerStats implements Drawable{
             leftG2d.setColor(Color.YELLOW);
         }
 
-        leftG2d.fillRect(150, 32, currTank2Hp * 2, 30);
+        String leftHp;
+        if(100 >= currTank2Hp) {
+            leftG2d.fillRect(150, 32, currTank2Hp * 2, 30);
+            leftHp = "HP: " + currTank2Hp;
+        }else{
+            leftHp = "HP: INVULNERABLE";
+        }
 
         leftG2d.setFont(new Font("Helvetica", Font.BOLD, 36));
         leftG2d.setColor(Color.WHITE);
-        String leftHp = "HP: " + currTank2Hp;
         leftG2d.drawString(leftHp, 10, 60);
 
         String leftLife = "LIVES: " + tank2.getLives();
@@ -79,14 +84,19 @@ public class PlayerStats implements Drawable{
             rightG2d.setColor(Color.YELLOW);
         }
 
-        rightG2d.fillRect(150, 32, currTank2Hp * 2, 30);
+        String rightHp;
+        if(100 >= currTank1Hp) {
+            rightG2d.fillRect(150, 32, currTank1Hp * 2, 30);
+            rightHp = "HP: " + currTank1Hp;
+        }else{
+            rightHp = "HP: INVULNERABLE";
+        }
 
         rightG2d.setFont(new Font("Helvetica", Font.BOLD, 36));
         rightG2d.setColor(Color.WHITE);
-        String rightHp = "HP: " + currTank2Hp;
         rightG2d.drawString(rightHp, 10, 60);
 
-        String rightLife = "LIVES: " + tank2.getLives();
+        String rightLife = "LIVES: " + tank1.getLives();
         rightG2d.drawString(rightLife, 10, 120);
 
         String rightAmmo = "AMMO:";

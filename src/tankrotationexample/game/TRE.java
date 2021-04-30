@@ -61,9 +61,11 @@ public class TRE extends JPanel implements Runnable {
                 Thread.sleep(1000 / 144); //sleep for a few milliseconds
                 /*
                  * simulate an end game event
-                 * we will do this with by ending the game when drawn 2000 frames have been drawn
+                 * we will do this with by ending the game when drawn 6000 frames have been drawn
+                 * also ends the game when tank1 has no more life and no more hp
+                 * or ends the game when t2 has no more life and no more hp
                  */
-                if(this.tick > 6000){
+                if(this.tick > 6000 || (0 >= t1.getLives() && 0 >= t1.getHitPoints()) || (0 >= t2.getLives() && 0 >= t2.getHitPoints())){
                     this.lf.setFrame("end");
                     return;
                 }
