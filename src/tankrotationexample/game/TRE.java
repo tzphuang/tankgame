@@ -17,6 +17,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Objects;
 
 
@@ -37,6 +38,8 @@ public class TRE extends JPanel implements Runnable {
     private SplitScreen tankSplitScreen;
     private MiniMap gameMiniMap;
     private PlayerStats tankStats;
+    private ArrayList<Bullet> bulletArrayCollisionDetection;
+    private Iterator myIterator;
 
     public TRE(Launcher lf){
         this.lf = lf;
@@ -67,7 +70,7 @@ public class TRE extends JPanel implements Runnable {
                  * also ends the game when tank1 has no more life and no more hp
                  * or ends the game when t2 has no more life and no more hp
                  */
-                if(this.tick > 6000 || (0 >= t1.getLives() && 0 >= t1.getHitPoints()) || (0 >= t2.getLives() && 0 >= t2.getHitPoints())){
+                if(this.tick > 15000 || (0 >= t1.getLives() && 0 >= t1.getHitPoints()) || (0 >= t2.getLives() && 0 >= t2.getHitPoints())){
                     this.lf.setFrame("end");
                     return;
                 }
@@ -170,13 +173,13 @@ public class TRE extends JPanel implements Runnable {
 
                         //heavy machine gun
                         case "3":
-                            MachineGunMode curMgun = new MachineGunMode(currentColumn * 50, currentRow * 50, 0, 0, 0, heavyMgun);
+                            MachineGunMode curMgun = new MachineGunMode(currentColumn * 50, currentRow * 50, 0, 0, 0, heavyMgun, mgBulletImg);
                             this.overWorldObjects.add(curMgun);
                             break;
 
                         //rocket launcher
                         case "4":
-                            RocketLauncherMode curRLauncher = new RocketLauncherMode(currentColumn * 50, currentRow * 50, 0, 0, 0, rLauncher);
+                            RocketLauncherMode curRLauncher = new RocketLauncherMode(currentColumn * 50, currentRow * 50, 0, 0, 0, rLauncher, rocketBulletImg);
                             this.overWorldObjects.add(curRLauncher);
                             break;
 
@@ -255,8 +258,42 @@ public class TRE extends JPanel implements Runnable {
 
     public void checkCollisions(){
         if(this.t1.getHitBox().intersects(this.t2.getHitBox())){
-            System.out.println("tanks collided");
+            //produces bug where if you ram a tank from behind itll make the tank go backwards
+            this.t1.moveBackwards();
+            this.t1.moveBackwards();
+            this.t2.moveBackwards();
+            this.t2.moveBackwards();
         }
+
+        //check collisions will loop through all objects and call their respective collisionDetected method
+
+        //compares tank1's bullets to tank2's hitbox
+        bulletArrayCollisionDetection = t1.getListOfBullets();
+        if(!bulletArrayCollisionDetection.isEmpty()){
+            for (Bullet compareBullet : bulletArrayCollisionDetection){
+                System.out.println("inside loop");
+                if( this.t2.getHitBox().intersects( compareBullet.getHitBox() ) ) {
+                    System.out.print("bullet collision detected");
+                    t2.collisionDetected(compareBullet);
+                }
+                bulletArrayCollisionDetection.remove(compareBullet); //removes the bullet from the list cause its hit something
+            }
+        }
+
+        /*
+        bulletArrayCollisionDetection = t1.getListOfBullets();
+        myIterator = bulletArrayCollisionDetection.iterator();
+        while(myIterator.hasNext()){
+            Bullet compareBullet = (Bullet) myIterator.next();
+            if( this.t2.getHitBox().intersects( compareBullet.getHitBox() ) ) {
+                System.out.print("bullet collision detected");
+                t2.collisionDetected(compareBullet);
+                bulletArrayCollisionDetection.remove(compareBullet); //removes the bullet from the list cause its hit something
+            }
+        }*/
+
+
+
     }
 
 }

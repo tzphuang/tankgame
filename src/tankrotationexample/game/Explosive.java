@@ -13,4 +13,6 @@ public abstract class Explosive extends Bullet{
     public void drawImage(Graphics gameImage) {
         super.drawImage(gameImage);
     }
+
+    public abstract void collisionDetected(GameObject currentObjectCollided);
 }

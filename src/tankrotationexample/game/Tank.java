@@ -25,6 +25,8 @@ public class Tank extends Moving{
     private boolean shootPressRelease = true;
     private long tickTimer;
 
+    private int autoTimer;
+
     private ArrayList<Bullet> listOfBullets;
 
     private boolean UpPressed;
@@ -39,6 +41,7 @@ public class Tank extends Moving{
         this.lives = 3;
         currentAmmoNum = 1;//sets the tank to be on machinegun mode at creation
         listOfBullets = new ArrayList<>();
+        autoTimer = 144;
     }
 
     public void setShootPressRelease(boolean currShootPressed) {
@@ -142,10 +145,37 @@ public class Tank extends Moving{
         if (this.RightPressed) {
             this.rotateRight();
         }
+
+        //checks if hp is 0 or below and will compensate with an exchange of a life for full hp
+        if(0 >= this.hitPoints){
+            this.lives -= 1;
+            this.hitPoints = 100;
+        }
+
+        //hp will automatically lower by itself on each update back to 100
+        if(100 < this.hitPoints){
+            this.hitPoints -= 2;
+
+            //makes sure that your hitpoints dont get below 100 from the autoloss of hp
+            if(100 >= this.hitPoints){
+                this.hitPoints = 100;
+            }
+        }
+
+        //autofire rate for different weapons is slower or faster depending on weapon type
+        if(this.currentAmmoNum == 1){//machinegun autoTimer setter
+            this.autoTimer = 48;
+        }else if(this.currentAmmoNum == 2){//rocketLauncher autoTimer
+            this.autoTimer = 144;
+        }
+        else{
+            this.autoTimer = 72;
+        }
+
         if (this.ShootPressed) {
             //spawn a bullet on first check of shooting button being pressed
             //shootPressRelease will only be true after the user releases the shoot button
-            if(shootPressRelease || (tickTimer % 72 == 0)) {
+            if(shootPressRelease || (tickTimer % autoTimer == 0)) {
                 this.spawnBullet();
                 shootPressRelease = false;
                 //System.out.println("bullet spawned");
@@ -189,5 +219,26 @@ public class Tank extends Moving{
     public void drawImage(Graphics gameImage) {
         super.drawImage(gameImage);
         this.listOfBullets.forEach(Bullet -> Bullet.drawImage(gameImage));
+    }
+
+    public void collisionDetected(GameObject currentObjectCollided){
+        if (currentObjectCollided instanceof Bullet){
+            this.hitPoints -= ((Bullet) currentObjectCollided).getBulletDamage();
+
+            //I can just delete it in the TRE? itll be better i think
+            //delete bullet since it has collided with the tank already
+            //currentObjectCollided = null;
+        }
+        else if (currentObjectCollided instanceof Stationary){
+            this.moveBackwards();
+        }
+        else if (currentObjectCollided instanceof Powerup){
+            ((Powerup) currentObjectCollided).applyPowerup(this);
+        }
+        else{
+            //this shouldnt ever be activated
+            System.out.println("else statement found in collision detected from tank class");
+        }
+
     }
 }

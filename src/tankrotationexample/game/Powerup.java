@@ -9,6 +9,8 @@ public abstract class Powerup extends Moving{
         super(currX, currY, currVX, currVY, currAngle, currImg);
     }
 
+    public abstract void applyPowerup(Tank currTank);
+
     @Override
     public void drawImage(Graphics gameImage) {
         super.drawImage(gameImage);

@@ -98,4 +98,7 @@ public abstract class Moving extends GameObject{
     public void drawImage(Graphics gameImage) {
         super.drawImage(gameImage);
     }
+
+    //this is here and not in gameObject because only moving objects will collide with other gameObjects
+    public abstract void collisionDetected(GameObject currentObjectCollided);
 }
