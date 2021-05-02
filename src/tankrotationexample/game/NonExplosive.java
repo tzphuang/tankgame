@@ -14,5 +14,7 @@ public abstract class NonExplosive extends Bullet{
         super.drawImage(gameImage);
     }
 
-    public abstract void collisionDetected(GameObject currentObjectCollided);
+    public void collisionDetected(GameObject currentObjectCollided){
+        super.collisionDetected(currentObjectCollided);
+    }
 }

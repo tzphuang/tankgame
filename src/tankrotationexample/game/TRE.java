@@ -68,7 +68,8 @@ public class TRE extends JPanel implements Runnable {
                  * also ends the game when tank1 has no more life and no more hp
                  * or ends the game when t2 has no more life and no more hp
                  */
-                if(this.tick > 15000 || (0 >= t1.getLives() && 0 >= t1.getHitPoints()) || (0 >= t2.getLives() && 0 >= t2.getHitPoints())){
+                //if(this.tick > 15000 || (0 >= t1.getLives() && 0 >= t1.getHitPoints()) || (0 >= t2.getLives() && 0 >= t2.getHitPoints())){
+                if((0 >= t1.getLives() && 0 >= t1.getHitPoints()) || (0 >= t2.getLives() && 0 >= t2.getHitPoints())){
                     this.lf.setFrame("end");
                     return;
                 }
@@ -255,6 +256,24 @@ public class TRE extends JPanel implements Runnable {
     }
 
     public void checkCollisions(){
+        //checks through bullet arrays to see if their bounce number is 0 that means they have exceeded their bounces
+        //meaning they will be removed
+        bulletArrayCollisionDetection = t1.getListOfBullets();
+        for(int index = 0; index < bulletArrayCollisionDetection.size(); index++){
+            if(0 >= bulletArrayCollisionDetection.get(index).getBounceNum()){
+                bulletArrayCollisionDetection.remove(index);
+                index--;
+            }
+        }
+
+        bulletArrayCollisionDetection = t2.getListOfBullets();
+        for(int index = 0; index < bulletArrayCollisionDetection.size(); index++){
+            if(0 >= bulletArrayCollisionDetection.get(index).getBounceNum()){
+                bulletArrayCollisionDetection.remove(index);
+                index--;
+            }
+        }
+
         if(this.t1.getHitBox().intersects(this.t2.getHitBox())){
             //produces bug where if you ram a tank from behind itll make the tank go backwards
             this.t1.moveBackwards();
@@ -264,32 +283,6 @@ public class TRE extends JPanel implements Runnable {
         }
 
         //check collisions will loop through all objects and call their respective collisionDetected method
-
-        /*
-        //compares tank1's bullets to tank2's hitbox
-        bulletArrayCollisionDetection = t1.getListOfBullets();
-        if(!bulletArrayCollisionDetection.isEmpty()){
-            for (Bullet compareBullet : bulletArrayCollisionDetection){
-                System.out.println("inside loop");
-                if( this.t2.getHitBox().intersects( compareBullet.getHitBox() ) ) {
-                    System.out.print("bullet collision detected");
-                    t2.collisionDetected(compareBullet);
-                }
-                bulletArrayCollisionDetection.remove(compareBullet); //removes the bullet from the list cause its hit something
-            }
-        }*/
-
-        /*
-        bulletArrayCollisionDetection = t1.getListOfBullets();
-        myIterator = bulletArrayCollisionDetection.iterator();
-        while(myIterator.hasNext()){
-            Bullet compareBullet = (Bullet) myIterator.next();
-            if( this.t2.getHitBox().intersects( compareBullet.getHitBox() ) ) {
-                System.out.print("bullet collision detected");
-                t2.collisionDetected(compareBullet);
-                bulletArrayCollisionDetection.remove(compareBullet); //removes the bullet from the list cause its hit something
-            }
-        }*/
 
         //compares tank1's bullets to tank2's hitbox
         bulletArrayCollisionDetection = t1.getListOfBullets();
@@ -311,6 +304,43 @@ public class TRE extends JPanel implements Runnable {
             }
         }
 
+        //checks every moving object with overworld object and applies collisionDetected
+        for(int index = 0; index < overWorldObjects.size(); index++){
+            if(this.t1.getHitBox().intersects( this.overWorldObjects.get(index).getHitBox() ) ){
+                this.t1.collisionDetected(this.overWorldObjects.get(index));
+            }
+            else if(this.t2.getHitBox().intersects( this.overWorldObjects.get(index).getHitBox() ) ){
+                this.t2.collisionDetected(this.overWorldObjects.get(index));
+            }
+
+            //checking tank1's bullets against the overworld object
+            bulletArrayCollisionDetection = t1.getListOfBullets();
+            for(int bulletIndex = 0; bulletIndex < bulletArrayCollisionDetection.size(); bulletIndex++){
+                if(bulletArrayCollisionDetection.get(bulletIndex).getHitBox().intersects(overWorldObjects.get(index).getHitBox())){
+                    bulletArrayCollisionDetection.get(bulletIndex).collisionDetected(overWorldObjects.get(index));
+                    if(overWorldObjects.get(index) instanceof Breakable){
+                        bulletArrayCollisionDetection.remove(bulletIndex);
+                        bulletIndex--;
+                        overWorldObjects.remove(index);
+                        index--;
+                    }
+                }
+            }
+
+            bulletArrayCollisionDetection = t2.getListOfBullets();
+            for(int bulletIndex = 0; bulletIndex < bulletArrayCollisionDetection.size(); bulletIndex++){
+                if(bulletArrayCollisionDetection.get(bulletIndex).getHitBox().intersects(overWorldObjects.get(index).getHitBox())){
+                    bulletArrayCollisionDetection.get(bulletIndex).collisionDetected(overWorldObjects.get(index));
+                    if(overWorldObjects.get(index) instanceof Breakable){
+                        bulletArrayCollisionDetection.remove(bulletIndex);
+                        bulletIndex--;
+                        overWorldObjects.remove(index);
+                        index--;
+                    }
+                }
+            }
+
+        }
 
 
     }

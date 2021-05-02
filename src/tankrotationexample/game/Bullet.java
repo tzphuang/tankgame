@@ -7,10 +7,12 @@ public abstract class Bullet extends Moving{
 
     private final int R = 7;
     private int bulletDamage;
+    private int bounceNum;
 
     Bullet(int currX, int currY, int currVX, int currVY, float currAngle, BufferedImage currImg){
         super(currX, currY, currVX, currVY, currAngle, currImg);
         this.bulletDamage = 0;
+        this.bounceNum = 1;
     }
 
     public void setBulletDamage(int currBulletDamage){
@@ -33,6 +35,19 @@ public abstract class Bullet extends Moving{
         this.setHitBox(getX(),getY());
     }
 
+    public int getBounceNum(){
+        return this.bounceNum;
+    }
+
+    public void setBounceNum(int currBounceNum){
+        this.bounceNum = currBounceNum;
+    }
+
+    protected void bounceRotate(){
+        setAngle(getAngle() + 60);
+        this.bounceNum -= 1;
+    }
+
     public void update(){
         moveForwards();
     }
@@ -42,5 +57,9 @@ public abstract class Bullet extends Moving{
         super.drawImage(gameImage);
     }
 
-    public abstract void collisionDetected(GameObject currentObjectCollided);
+    public void collisionDetected(GameObject currentObjectCollided){
+        if(currentObjectCollided instanceof Unbreakable){
+            this.bounceRotate();
+        }
+    }
 }

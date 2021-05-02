@@ -11,7 +11,7 @@ public class GodMode extends Powerup{
     }
 
     public void applyPowerup(Tank currTank){
-        currTank.setHitPoints(250);
+        currTank.setHitPoints(2000);
     }
 
     @Override

@@ -8,6 +8,7 @@ public class RocketLauncher extends Explosive{
     RocketLauncher(int currX, int currY, int currVX, int currVY, float currAngle, BufferedImage currImg){
         super(currX, currY, currVX, currVY, currAngle, currImg);
         setBulletDamage(20);
+        setBounceNum(7);
     }
 
     @Override
@@ -16,6 +17,6 @@ public class RocketLauncher extends Explosive{
     }
 
     public void collisionDetected(GameObject currentObjectCollided){
-
+        super.collisionDetected(currentObjectCollided);
     }
 }
