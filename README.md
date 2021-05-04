@@ -37,7 +37,7 @@ The jar folder is to be used to store the built jar of your term-project.
 1. Open intellij and open the new imported project
 2. There should be a tab to the side of intellij after loading up everything that says 1:project
 written vertically or whatever is the current top left
-3. Here you will see files, press interpreter > Interpreter.java > scroll down to the “public
+3. Here you will see files, press launcher > Launcher.java > scroll down to the “public
 static void main” function > (press on the file somewhere if not already clicked to
 reference the page) click the green left play arrow on the left of the main function
 4. Press run
