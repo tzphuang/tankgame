@@ -105,16 +105,6 @@ public class TRE extends JPanel implements Runnable {
                                        GameConstants.WORLD_HEIGHT,
                                        BufferedImage.TYPE_INT_RGB);
 
-        BufferedImage t1img = null;
-        BufferedImage t2img = null;
-        BufferedImage unBreakWall = null;
-        BufferedImage breakWall = null;
-        BufferedImage heavyMgun = null;
-        BufferedImage rLauncher = null;
-        BufferedImage godMode = null;
-        BufferedImage mgBulletImg = null;
-        BufferedImage rocketBulletImg = null;
-
         overWorldObjects = new ArrayList<>();
 
         try {
@@ -122,15 +112,6 @@ public class TRE extends JPanel implements Runnable {
              * note class loaders read files from the out folder (build folder in Netbeans) and not the
              * current working directory.
              */
-            t1img = read(Objects.requireNonNull(TRE.class.getClassLoader().getResource("tankred.png")));
-            t2img = read(Objects.requireNonNull(TRE.class.getClassLoader().getResource("tankblue.png")));
-            unBreakWall = read(Objects.requireNonNull(TRE.class.getClassLoader().getResource("unbreakable.png")));
-            breakWall = read(Objects.requireNonNull(TRE.class.getClassLoader().getResource("breakable.png")));
-            heavyMgun = read(Objects.requireNonNull(TRE.class.getClassLoader().getResource("heavy machine gun.png")));
-            rLauncher = read(Objects.requireNonNull(TRE.class.getClassLoader().getResource("rocket launcher.png")));
-            godMode = read(Objects.requireNonNull(TRE.class.getClassLoader().getResource("tankgold.png")));
-            mgBulletImg = read(Objects.requireNonNull(TRE.class.getClassLoader().getResource("bullet.png")));
-            rocketBulletImg = read(Objects.requireNonNull(TRE.class.getClassLoader().getResource("rocket.png")));
 
             //Reading in Map.txt to load in the map to game
             InputStreamReader isr = new InputStreamReader(TRE.class.getClassLoader().getResourceAsStream("Map.txt"));
@@ -160,31 +141,31 @@ public class TRE extends JPanel implements Runnable {
 
                         //unbreakable wall
                         case "1":
-                            Unbreakable curUnbreakWall = new Unbreakable(currentColumn * 50, currentRow * 50, 0,unBreakWall);
+                            Unbreakable curUnbreakWall = new Unbreakable(currentColumn * 50, currentRow * 50, 0,Resource.getResourceImg("unBreakWall"));
                             this.overWorldObjects.add(curUnbreakWall);
                             break;
 
                         //breakable wall
                         case "2":
-                            Breakable curBreakableWall = new Breakable(currentColumn * 50, currentRow * 50, 0, breakWall);
+                            Breakable curBreakableWall = new Breakable(currentColumn * 50, currentRow * 50, 0, Resource.getResourceImg("breakWall"));
                             this.overWorldObjects.add(curBreakableWall);
                             break;
 
                         //heavy machine gun
                         case "3":
-                            MachineGunMode curMgun = new MachineGunMode(currentColumn * 50, currentRow * 50, 0, 0, 0, heavyMgun, mgBulletImg);
+                            MachineGunMode curMgun = new MachineGunMode(currentColumn * 50, currentRow * 50, 0, 0, 0, Resource.getResourceImg("heavyMgun"), Resource.getResourceImg("mgBulletImg"));
                             this.overWorldObjects.add(curMgun);
                             break;
 
                         //rocket launcher
                         case "4":
-                            RocketLauncherMode curRLauncher = new RocketLauncherMode(currentColumn * 50, currentRow * 50, 0, 0, 0, rLauncher, rocketBulletImg);
+                            RocketLauncherMode curRLauncher = new RocketLauncherMode(currentColumn * 50, currentRow * 50, 0, 0, 0, Resource.getResourceImg("rLauncher"), Resource.getResourceImg("rocketBulletImg"));
                             this.overWorldObjects.add(curRLauncher);
                             break;
 
                         //god mode
                         case "5":
-                            GodMode curPwrUp = new GodMode(currentColumn * 50, currentRow * 50, 0, 0, 0, godMode);
+                            GodMode curPwrUp = new GodMode(currentColumn * 50, currentRow * 50, 0, 0, 0, Resource.getResourceImg("godMode"));
                             this.overWorldObjects.add(curPwrUp);
                             break;
 
@@ -202,20 +183,20 @@ public class TRE extends JPanel implements Runnable {
         }
 
         //right tank
-        t1 = new Tank(GameConstants.RIGHT_TANK_STARTING_LOCATION_X, GameConstants.RIGHT_TANK_STARTING_LOCATION_Y, 0, 0, 0, t1img);
+        t1 = new Tank(GameConstants.RIGHT_TANK_STARTING_LOCATION_X, GameConstants.RIGHT_TANK_STARTING_LOCATION_Y, 0, 0, 0, Resource.getResourceImg("t1img"));
         TankControl tc1 = new TankControl(t1, KeyEvent.VK_UP, KeyEvent.VK_DOWN, KeyEvent.VK_LEFT, KeyEvent.VK_RIGHT, KeyEvent.VK_ENTER);
         this.setBackground(Color.BLACK);
         this.lf.getJf().addKeyListener(tc1);
         t1.setCurrentAmmoNum(1); //1 represents machine gun ammo, while 2 is rockets
-        t1.setAmmo(mgBulletImg);
+        t1.setAmmo(Resource.getResourceImg("mgBulletImg"));
 
         //left tank
-        t2 = new Tank (GameConstants.LEFT_TANK_STARTING_LOCATION_X, GameConstants.LEFT_TANK_STARTING_LOCATION_Y, 0, 0, 0, t2img);
+        t2 = new Tank (GameConstants.LEFT_TANK_STARTING_LOCATION_X, GameConstants.LEFT_TANK_STARTING_LOCATION_Y, 0, 0, 0, Resource.getResourceImg("t2img"));
         TankControl tc2 = new TankControl(t2, KeyEvent.VK_W, KeyEvent.VK_S, KeyEvent.VK_A, KeyEvent.VK_D, KeyEvent.VK_SPACE);
         this.setBackground(Color.CYAN);
         this.lf.getJf().addKeyListener(tc2);
         t2.setCurrentAmmoNum(1); //1 represents machine gun ammo, while 2 is rockets
-        t2.setAmmo(mgBulletImg);
+        t2.setAmmo(Resource.getResourceImg("mgBulletImg"));
 
         //adds the references into the tank split screen inside this initialization block to create the split screen later
         tankSplitScreen = new SplitScreen(t1, t2, world);
